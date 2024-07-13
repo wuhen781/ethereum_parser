@@ -67,7 +67,7 @@ func (p *EthereumParser) GetTransactions(address string) []Transaction {
 	var transactions []Transaction
 
 	latestBlock := p.GetCurrentBlock()
-	lastGetBlock := latestBlock - 5
+	lastGetBlock := latestBlock - 20 //fetch last 20 block
 
 	for blockNumber := latestBlock; blockNumber > lastGetBlock; blockNumber-- {
 		response, err := p.callRPC("eth_getBlockByNumber", []interface{}{IntToHex(blockNumber), true})

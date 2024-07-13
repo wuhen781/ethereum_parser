@@ -68,8 +68,26 @@ func TestEthereumParser_GetTransactions(t *testing.T) {
 					"timestamp": "0x5c0",
 					"transactions": []interface{}{
 						map[string]interface{}{
-							"from":     "0x123",
+							"from":     "0x123", //my adress
 							"to":       "0x456",
+							"value":    "0x1",
+							"gas":      "0x5208",
+							"gasPrice": "0x3b9aca00",
+							"hash":     "0x789",
+							"nonce":    "0x0",
+						},
+						map[string]interface{}{ //not mine
+							"from":     "0xaaa",
+							"to":       "0xbbb",
+							"value":    "0x1",
+							"gas":      "0x5208",
+							"gasPrice": "0x3b9aca00",
+							"hash":     "0x789",
+							"nonce":    "0x0",
+						},
+						map[string]interface{}{
+							"from":     "0x456",
+							"to":       "0x123", //my adress
 							"value":    "0x1",
 							"gas":      "0x5208",
 							"gasPrice": "0x3b9aca00",
@@ -119,6 +137,14 @@ func TestEthereumParser_GetTransactions(t *testing.T) {
 	if tx.Timestamp != 1472 {
 		t.Errorf("Expected Timestamp to be 1472, got %d", tx.Timestamp)
 	}
+	tx2 := transactions[1]
+	if tx2.To != "0x123" {
+		t.Errorf("Expected From to be '0x123', got %s", tx.From)
+	}
+	if tx2.From != "0x456" {
+		t.Errorf("Expected To to be '0x456', got %s", tx.To)
+	}
+
 }
 
 func TestHexToInt(t *testing.T) {
